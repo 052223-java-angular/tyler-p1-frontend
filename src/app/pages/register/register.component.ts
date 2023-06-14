@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Self } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterPayload } from 'src/app/models/register-payload';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 /**
  * Component for user registration.
@@ -9,7 +9,7 @@ import { AuthServiceService } from 'src/app/services/auth-service.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
@@ -17,13 +17,13 @@ export class RegisterComponent implements OnInit {
   /**
    * Initializes the register form with empty fields and validators.
    */
-  constructor(private fb: FormBuilder, private authService: AuthServiceService) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
     });
   }
 
@@ -46,14 +46,14 @@ export class RegisterComponent implements OnInit {
 
     // Call the authentication service to register the user
     this.authService.register(payload).subscribe({
-      next: value => {
+      next: (value) => {
         // Handle the success response
         // TODO: Add code for handling success response
       },
-      error: error => {
+      error: (error) => {
         // Handle the error response
         // TODO: Add code for handling error response
-      }
+      },
     });
   }
 }
