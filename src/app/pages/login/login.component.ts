@@ -1,7 +1,7 @@
 import { Component, OnInit, Self } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegisterPayload } from 'src/app/models/register-payload';
+import { LoginPayload } from 'src/app/models/login-payload';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from 'src/app/global/app-settings';
@@ -9,12 +9,12 @@ import { AppSettings } from 'src/app/global/app-settings';
  * Component for user registration.
  */
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
-export class RegisterComponent implements OnInit {
-  registerForm!: FormGroup;
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
 
   /**
    * Initializes the register form with empty fields and validators.
@@ -27,10 +27,9 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
+    this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
     });
   }
 
@@ -39,31 +38,29 @@ export class RegisterComponent implements OnInit {
    * If the form is invalid, logs an error message to the console.
    */
   submitForm(): void {
-    if (this.registerForm.invalid) {
-      this.registerForm.controls['username'].markAsTouched();
-      this.registerForm.controls['password'].markAsTouched();
-      this.registerForm.controls['confirmPassword'].markAsTouched();
-      this.registerForm.reset();
+    if (this.loginForm.invalid) {
+      this.loginForm.controls['username'].markAsTouched();
+      this.loginForm.controls['password'].markAsTouched();
+      this.loginForm.reset();
       return;
     }
 
     // The payload to be sent to the backend API
-    const payload: RegisterPayload = {
-      username: this.registerForm.controls['username'].value,
-      password: this.registerForm.controls['password'].value,
-      confirmPassword: this.registerForm.controls['confirmPassword'].value,
+    const payload: LoginPayload = {
+      username: this.loginForm.controls['username'].value,
+      password: this.loginForm.controls['password'].value,
     };
 
     // Call the authentication service to register the user
-    this.authService.register(payload).subscribe({
+    this.authService.login(payload).subscribe({
       next: (value) => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Registration successful',
+          detail: 'Login successful',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
-        this.router.navigate(['/login']);
+        this.router.navigate(['/menu']);
       },
       error: (error) => {
         this.messageService.add({

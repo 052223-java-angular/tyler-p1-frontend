@@ -1,23 +1,50 @@
 <div class="flex flex-col items-center">
     <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="flex flex-col items-center gap-10 my-40 shadow-xl p-20 rounded-md">
-        <h1 class="font-bold text-4xl">REGISTER...</h1>
+        <h1 class="font-bold text-4xl">SIGN UP</h1>
         <label class="flex flex-col">
             Username:
             <input class="bg-slate-300 px-5 py-2 rounded-md shadow-xl transition focus:ease-out focus:scale-110 duration-300" type="text" placeholder="Username" formControlName="username" />
         </label>
     
+        <ng-container
+            class="flex flex-col"
+            *ngIf="registerForm.controls['username']?.errors">
+            <small
+                class="text-red-500"
+                *ngIf="registerForm.controls['username']?.touched">
+                Username cannot be empty
+            </small>
+        </ng-container>
     
         <label class="flex flex-col">
             Password:
             <input class="bg-slate-300 px-5 py-2 rounded-md shadow-xl transition focus:ease-out focus:scale-110 duration-300" type="password" placeholder="Password" formControlName="password" />
         </label>
+
+        <ng-container 
+            *ngIf="registerForm.controls['password']?.errors">
+            <small
+                class="text-red-500"
+                *ngIf="registerForm.controls['password']?.touched">
+                Password cannot be empty
+            </small>
+        </ng-container>
     
         <label class="flex flex-col">
             Confirm password:
             <input class="bg-slate-300 px-5 py-2 rounded-md shadow-xl transition focus:ease-out focus:scale-110 duration-300" type="password" placeholder="Confirm password" formControlName="confirmPassword" />
         </label>
+
+        <ng-container 
+            *ngIf="registerForm.controls['confirmPassword']?.errors">
+            <small
+                class="text-red-500"
+                *ngIf="registerForm.controls['confirmPassword']?.touched">
+                Confirm password cannot be empty
+            </small>
+        </ng-container>
     
-        <button type="submit"  class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Sign up</button>
+        <button type="submit"  class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration" [disabled]="!this.registerForm.valid">Sign up</button>
 
         <a class="text-blue-500 underline underline-offset-4" routerLink="/login">Already have account?</a>
     </form>
