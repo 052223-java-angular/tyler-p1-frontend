@@ -14,6 +14,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { LoginComponent } from './pages/login/login.component';
+import { MenuComponent } from './pages/menu/menu.component';
 /**
  * The root module of the Angular application.
  */
@@ -26,6 +27,7 @@ import { LoginComponent } from './pages/login/login.component';
     NotFoundComponent,
     RegisterComponent,
     LoginComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment
