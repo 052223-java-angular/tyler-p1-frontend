@@ -1,0 +1,15 @@
+<div class="w-9/12 flex flex-col gap-7 my-40 mx-auto">
+    <h1 class="font-bold text-4xl">{{ menuItem.name }}</h1>
+    <p class="text-base text-slate-500">{{ menuItem.description }}</p>
+    
+    <hr class="w-full my-2 bg-slate-300 border-0">
+
+    <div 
+        *ngFor="let menuSection of menuItem.menuSections">
+        <h1 class="font-bold text-lg">{{ menuSection.name }}</h1>
+    </div>
+
+    <div class="text-center mt-16">
+        <button class="w-3/12 bg-blue-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Add to Cart</button>
+    </div>
+</div>

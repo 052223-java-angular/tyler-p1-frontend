@@ -9,17 +9,19 @@
                 {{ menuSection.name }}
             </h1>
             <div class="flex menu-items my-5">
-                <div
+                <a 
+                    routerLink="/menuItem"
+                    [state]="{ menuItem: menuItem }"
                     class="flex border-2 border-slate-500 p-4"
                     *ngFor="let menuItem of menuSection.menuItems">
-                    <div class="flex flex-col">
-                        <p class="text-lg">{{ menuItem.name }}</p>
-                        <p class="text-sm text-slate-700">{{ menuItem.description }}</p>
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-sm text-slate-700">{{ getCurrencySymbol(menuItem.menuItemOffers[0].currency) }} {{ getLowestOfferPrice(menuItem) }}</p>
-                    </div>
-                </div>
+                        <div class="flex flex-col">
+                            <p class="text-lg">{{ menuItem.name }}</p>
+                            <p class="text-sm text-slate-500">{{ menuItem.description }}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-sm text-slate-700">{{ getCurrencySymbol(menuItem.menuItemOffers[0].currency) }} {{ getLowestOfferPrice(menuItem) }}</p>
+                        </div>
+                </a>
             </div>
         </section>
     </div>

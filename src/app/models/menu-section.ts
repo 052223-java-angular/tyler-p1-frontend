@@ -4,4 +4,5 @@ export interface MenuSection {
   name: string;
   description: string;
   menuItems: MenuItem[];
+  displayOrder: number;
 }
