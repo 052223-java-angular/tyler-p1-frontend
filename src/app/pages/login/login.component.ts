@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     });
 
     if (this.tokenService.getToken()) {
-      this.router.navigate(['/menu']);
+      this.router.navigate(['/']);
     }
   }
 
