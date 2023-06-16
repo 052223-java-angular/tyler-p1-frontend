@@ -22,11 +22,15 @@ export class AuthInterceptor implements HttpInterceptor {
     let authReq = req;
     const token = this.tokenService.getToken();
     if (token != null) {
-      authReq = req.clone({
-        headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
-      });
+      authReq = this.addTokenHeader(req, token);
     }
     return next.handle(authReq);
+  }
+
+  private addTokenHeader(request: HttpRequest<any>, token: string) {
+    return request.clone({
+      headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
+    });
   }
 }
 
