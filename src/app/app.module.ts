@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
+import { authInterceptorProviders } from './interceptors/auth.interceptor';
 /**
  * The root module of the Angular application.
  */
@@ -38,7 +39,7 @@ import { MenuComponent } from './pages/menu/menu.component';
     MessagesModule, // Module to display messages inline
     ToastModule, // Module to display messages in an overlay
   ],
-  providers: [MessageService], // Array of services to be provided globally
+  providers: [MessageService, authInterceptorProviders], // Array of services to be provided globally
   bootstrap: [AppComponent], // The root component to be bootstrapped
 })
 export class AppModule {}

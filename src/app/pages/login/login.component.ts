@@ -5,6 +5,7 @@ import { LoginPayload } from 'src/app/models/login-payload';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from 'src/app/global/app-settings';
+import { TokenService } from 'src/app/services/token.service';
 /**
  * Component for user registration.
  */
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private messageService: MessageService,
+    private tokenService: TokenService,
     private router: Router
   ) {}
 
@@ -31,6 +33,10 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+
+    if (this.tokenService.getToken()) {
+      this.router.navigate(['/menu']);
+    }
   }
 
   /**
@@ -53,14 +59,17 @@ export class LoginComponent implements OnInit {
 
     // Call the authentication service to register the user
     this.authService.login(payload).subscribe({
-      next: (value) => {
+      next: (data) => {
+        this.tokenService.saveToken(data.accessToken);
+        this.tokenService.saveRefreshToken(data.refreshToken);
+        this.tokenService.saveUser(data);
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Login successful',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
-        this.router.navigate(['/menu']);
+        window.location.reload();
       },
       error: (error) => {
         this.messageService.add({

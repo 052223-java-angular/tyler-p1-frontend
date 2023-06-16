@@ -22,7 +22,6 @@ export class MenuComponent implements OnInit {
     this.menuService.getById(AppSettings.DEFAULT_MENU_ID).subscribe({
       next: (value) => {
         this.menu = value;
-        console.log(this.menu);
       },
       error: (error) => {
         this.messageService.add({
