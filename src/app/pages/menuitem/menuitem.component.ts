@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { finalize } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
-import { CartMenuItemOffer } from 'src/app/models/cart-menu-item-offer';
 import { MenuItem } from 'src/app/models/menu-item';
 import { CartService } from 'src/app/services/cart.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -17,8 +15,6 @@ import { EventBusEvents } from 'src/app/global/event-bus-events';
 })
 export class MenuItemComponent implements OnInit {
   menuItem!: MenuItem;
-  cartMenuItemOffer!: CartMenuItemOffer;
-  componentLoaded = false;
   user: any;
 
   constructor(
@@ -39,33 +35,6 @@ export class MenuItemComponent implements OnInit {
       menuSection.menuItems.sort((a, b) => a.displayOrder - b.displayOrder);
     }
     this.user = this.tokenService.getUser();
-
-    if (this.user.id) {
-      this.cartService
-        .getCartMenuItemOffer(this.menuItem.menuItemOffers[0].id)
-        .pipe(
-          finalize(() => {
-            this.componentLoaded = true;
-          })
-        )
-        .subscribe({
-          next: (data) => {
-            if (data) {
-              this.cartMenuItemOffer = data;
-            }
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error.message,
-              life: AppSettings.DEFAULT_MESSAGE_LIFE,
-            });
-          },
-        });
-    } else {
-      this.componentLoaded = true;
-    }
   }
 
   addCartMenuItemOffer() {
@@ -83,31 +52,6 @@ export class MenuItemComponent implements OnInit {
             life: AppSettings.DEFAULT_MESSAGE_LIFE,
           });
           this.eventBus.cast(EventBusEvents.ADD_MENU_ITEM_TO_CART, '');
-          this.router.navigate(['/']);
-        },
-        error: (error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: error.error.message,
-            life: AppSettings.DEFAULT_MESSAGE_LIFE,
-          });
-        },
-      });
-  }
-
-  removeCartMenuItemOffer() {
-    this.cartService
-      .removeCartMenuItemOffer(this.cartMenuItemOffer.id)
-      .subscribe({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: `${this.menuItem.name} removed from Cart`,
-            life: AppSettings.DEFAULT_MESSAGE_LIFE,
-          });
-          this.eventBus.cast(EventBusEvents.REMOVE_MENU_ITEM_TO_CART, '');
           this.router.navigate(['/']);
         },
         error: (error) => {
