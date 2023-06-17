@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/services/auth-service.service';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from 'src/app/global/app-settings';
 import { TokenService } from 'src/app/services/token.service';
+import { NgEventBus } from 'ng-event-bus';
+import { EventBusEvents } from 'src/app/global/event-bus-events';
+
 /**
  * Component for user registration.
  */
@@ -25,7 +28,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private messageService: MessageService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private eventBus: NgEventBus
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +38,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
 
-    if (this.tokenService.getToken()) {
+    if (this.tokenService.getUser().id) {
       this.router.navigate(['/']);
     }
   }
@@ -69,9 +73,8 @@ export class LoginComponent implements OnInit {
           detail: 'Login successful',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        this.eventBus.cast(EventBusEvents.LOGIN_LOGIN, '');
+        this.router.navigate(['/']);
       },
       error: (error) => {
         this.messageService.add({
