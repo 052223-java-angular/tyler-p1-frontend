@@ -15,6 +15,7 @@ import { MessageService } from 'primeng/api';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
+import { MenuItemComponent } from './pages/menuitem/menuitem.component';
 /**
  * The root module of the Angular application.
  */
@@ -27,6 +28,7 @@ import { authInterceptorProviders } from './interceptors/auth.interceptor';
     RegisterComponent,
     LoginComponent,
     MenuComponent,
+    MenuItemComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment

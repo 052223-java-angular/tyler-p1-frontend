@@ -69,7 +69,9 @@ export class LoginComponent implements OnInit {
           detail: 'Login successful',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       },
       error: (error) => {
         this.messageService.add({
