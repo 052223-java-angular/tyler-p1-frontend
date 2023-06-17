@@ -16,6 +16,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
 import { MenuItemComponent } from './pages/menuitem/menuitem.component';
+import { CartButtonComponent } from './components/cart-button/cart-button.component';
 /**
  * The root module of the Angular application.
  */
@@ -29,6 +30,7 @@ import { MenuItemComponent } from './pages/menuitem/menuitem.component';
     LoginComponent,
     MenuComponent,
     MenuItemComponent,
+    CartButtonComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment

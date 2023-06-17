@@ -4,6 +4,7 @@ import { AppSettings } from '../global/app-settings';
 import { Observable } from 'rxjs';
 import { CartMenuItemOffer } from '../models/cart-menu-item-offer';
 import { AddCartMenuItemOfferPayload } from '../models/add-cart-menu-item-offer-payload';
+import { Cart } from '../models/cart';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,9 @@ export class CartService {
     return this.http.delete<void>(
       `${this.baseUrl}/menuitemoffers/${cartMenuItemOfferId}`
     );
+  }
+
+  getCart(): Observable<Cart> {
+    return this.http.get<Cart>(`${this.baseUrl}/`);
   }
 }
