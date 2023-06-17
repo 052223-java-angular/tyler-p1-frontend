@@ -6,6 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { MenuItemComponent } from './pages/menuitem/menuitem.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent }, // Route for the home page
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Route for the login page
   { path: 'menu', component: MenuComponent },
   { path: 'menuItem', component: MenuItemComponent },
+  { path: 'cart', component: CartComponent },
   { path: '**', component: NotFoundComponent }, // Route for handling not-found pages
 ];
 

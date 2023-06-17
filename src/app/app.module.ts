@@ -18,6 +18,7 @@ import { authInterceptorProviders } from './interceptors/auth.interceptor';
 import { MenuItemComponent } from './pages/menuitem/menuitem.component';
 import { CartButtonComponent } from './components/cart-button/cart-button.component';
 import { NgEventBus } from 'ng-event-bus';
+import { CartComponent } from './pages/cart/cart.component';
 
 /**
  * The root module of the Angular application.
@@ -33,6 +34,7 @@ import { NgEventBus } from 'ng-event-bus';
     MenuComponent,
     MenuItemComponent,
     CartButtonComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment

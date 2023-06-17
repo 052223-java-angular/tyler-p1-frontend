@@ -21,3 +21,7 @@ body {
 .p-toast {
   opacity: 1;
 }
+
+hr {
+  height: 0.05rem;
+}
