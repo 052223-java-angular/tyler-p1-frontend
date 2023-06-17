@@ -16,6 +16,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
 import { MenuItemComponent } from './pages/menuitem/menuitem.component';
+import { CartButtonComponent } from './components/cart-button/cart-button.component';
+import { NgEventBus } from 'ng-event-bus';
+
 /**
  * The root module of the Angular application.
  */
@@ -29,6 +32,7 @@ import { MenuItemComponent } from './pages/menuitem/menuitem.component';
     LoginComponent,
     MenuComponent,
     MenuItemComponent,
+    CartButtonComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment
@@ -39,7 +43,7 @@ import { MenuItemComponent } from './pages/menuitem/menuitem.component';
     MessagesModule, // Module to display messages inline
     ToastModule, // Module to display messages in an overlay
   ],
-  providers: [MessageService, authInterceptorProviders], // Array of services to be provided globally
+  providers: [MessageService, authInterceptorProviders, NgEventBus], // Array of services to be provided globally
   bootstrap: [AppComponent], // The root component to be bootstrapped
 })
 export class AppModule {}

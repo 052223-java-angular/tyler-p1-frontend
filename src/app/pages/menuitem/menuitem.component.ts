@@ -7,6 +7,8 @@ import { CartMenuItemOffer } from 'src/app/models/cart-menu-item-offer';
 import { MenuItem } from 'src/app/models/menu-item';
 import { CartService } from 'src/app/services/cart.service';
 import { TokenService } from 'src/app/services/token.service';
+import { NgEventBus } from 'ng-event-bus';
+import { EventBusEvents } from 'src/app/global/event-bus-events';
 
 @Component({
   selector: 'app-menuitem',
@@ -23,7 +25,8 @@ export class MenuItemComponent implements OnInit {
     private messageService: MessageService,
     private cartService: CartService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private eventBus: NgEventBus
   ) {
     this.menuItem =
       this.router.getCurrentNavigation()?.extras.state?.['menuItem'];
@@ -76,9 +79,10 @@ export class MenuItemComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: `${this.menuItem.name} successfully added to cart`,
+            detail: `${this.menuItem.name} added to Cart`,
             life: AppSettings.DEFAULT_MESSAGE_LIFE,
           });
+          this.eventBus.cast(EventBusEvents.ADD_MENU_ITEM_TO_CART, '');
           this.router.navigate(['/']);
         },
         error: (error) => {
@@ -100,9 +104,10 @@ export class MenuItemComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: `${this.menuItem.name} successfully removed from cart`,
+            detail: `${this.menuItem.name} removed from Cart`,
             life: AppSettings.DEFAULT_MESSAGE_LIFE,
           });
+          this.eventBus.cast(EventBusEvents.REMOVE_MENU_ITEM_TO_CART, '');
           this.router.navigate(['/']);
         },
         error: (error) => {
