@@ -7,6 +7,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { NgEventBus } from 'ng-event-bus';
 import { Subscription } from 'rxjs';
 import { EventBusEvents } from 'src/app/global/event-bus-events';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-checkout-button',
@@ -21,6 +22,7 @@ export class CheckoutButtonComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private cartService: CartService,
+    private tokenService: TokenService,
     private eventBus: NgEventBus
   ) {
     this.sub = this.eventBus.on(`${EventBusEvents.CART}*`).subscribe((meta) => {
@@ -28,7 +30,9 @@ export class CheckoutButtonComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.getCartStatus();
+    if (this.tokenService.getUser().id) {
+      this.getCartStatus();
+    }
   }
 
   getCartStatus() {
