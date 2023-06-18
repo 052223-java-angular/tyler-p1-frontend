@@ -1,12 +1,14 @@
 <nav class="flex justify-between px-20 py-10 shadow-xl items-center">
     <!-- Left list -->
     <ul>
-        <h1 class="font-bold text-4xl">MarsTown</h1>
+        <a routerLink="">
+            <h1 class="font-bold text-4xl">MarsTown</h1>
+        </a>
     </ul>
 
     <!-- Right list -->
     <ul class="flex gap-5 items-center">
-        <li class="hover:underline hover:underline-offset-4"><a routerLink="/">Home</a></li>
+        <li class="hover:underline hover:underline-offset-4"><a routerLink="/">Menu</a></li>
         <div *ngIf="isLoggedIn" class="mb-3">
             <app-cart-button></app-cart-button>
         </div>

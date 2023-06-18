@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
@@ -50,6 +51,7 @@ import { CheckoutButtonComponent } from './components/checkout-button/checkout-b
     HttpClientModule, // Module for making HTTP requests
     MessagesModule, // Module to display messages inline
     ToastModule, // Module to display messages in an overlay
+    ProgressSpinnerModule, // Module to display progress spinner
   ],
   providers: [MessageService, authInterceptorProviders, NgEventBus], // Array of services to be provided globally
   bootstrap: [AppComponent], // The root component to be bootstrapped
