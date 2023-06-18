@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: error.error.message,
+          detail: error.error.message || error.statusText,
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
       },

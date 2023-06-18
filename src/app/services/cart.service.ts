@@ -33,4 +33,8 @@ export class CartService {
   getCart(): Observable<Cart> {
     return this.http.get<Cart>(`${this.baseUrl}/`);
   }
+
+  checkout(): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/checkout`, {});
+  }
 }
