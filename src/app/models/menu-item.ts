@@ -8,4 +8,5 @@ export interface MenuItem {
   menuItemOffers: MenuItemOffer[];
   menuSections: MenuSection[];
   displayOrder: number;
+  imageUrl: string;
 }

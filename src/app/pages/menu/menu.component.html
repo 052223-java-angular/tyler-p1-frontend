@@ -14,6 +14,10 @@
                     [state]="{ menuItem: menuItem }"
                     class="flex border-2 border-slate-500 p-4"
                     *ngFor="let menuItem of menuSection.menuItems">
+                        <div 
+                            class="flex flex col mr-4">
+                            <img width="200" height="160" src="https://i.imgur.com/ghlcELn.jpg">
+                        </div>
                         <div class="flex flex-col">
                             <p class="text-lg">{{ menuItem.name }}</p>
                             <p class="text-sm text-slate-500">{{ menuItem.description }}</p>
