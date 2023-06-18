@@ -1,0 +1,16 @@
+.float {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 999;
+}
+
+.float-borderless {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  text-align: center;
+  z-index: 999;
+}
