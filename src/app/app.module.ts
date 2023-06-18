@@ -19,6 +19,9 @@ import { MenuItemComponent } from './pages/menuitem/menuitem.component';
 import { CartButtonComponent } from './components/cart-button/cart-button.component';
 import { NgEventBus } from 'ng-event-bus';
 import { CartComponent } from './pages/cart/cart.component';
+import { SuccessComponent } from './pages/checkout/success/success.component';
+import { CancelComponent } from './pages/checkout/cancel/cancel.component';
+import { CheckoutButtonComponent } from './components/checkout-button/checkout-button.component';
 
 /**
  * The root module of the Angular application.
@@ -35,6 +38,9 @@ import { CartComponent } from './pages/cart/cart.component';
     MenuItemComponent,
     CartButtonComponent,
     CartComponent,
+    SuccessComponent,
+    CancelComponent,
+    CheckoutButtonComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment

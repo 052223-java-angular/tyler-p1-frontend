@@ -7,6 +7,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { MenuItemComponent } from './pages/menuitem/menuitem.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { SuccessComponent } from './pages/checkout/success/success.component';
+import { CancelComponent } from './pages/checkout/cancel/cancel.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent }, // Route for the home page
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'menuItem', component: MenuItemComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'checkout/success', component: SuccessComponent },
+  { path: 'checkout/cancel', component: CancelComponent },
   { path: '**', component: NotFoundComponent }, // Route for handling not-found pages
 ];
 

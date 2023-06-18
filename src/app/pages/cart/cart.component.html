@@ -18,9 +18,6 @@
         </div>
         <h1 class="font-bold text-6xl text-slate-700">Your Cart Is Currently Empty!</h1>
         <p class="mt-12 text-slate-700">Before proceeding to checkout you must add some items to your cart</p>
-        <button
-            routerLink="/"
-            class="mt-12 w-2/12 bg-blue-500 px-5 py-2 text-white shadow-xl transition hover:ease-out hover:scale-110 duration rounded-full">Return To Menu</button> 
     </div>
 
     <div class="flex justify-between" *ngFor="let item of cart.cartMenuItemOfferResponses">
@@ -41,4 +38,11 @@
             </button>
         </div>
     </div>
+
+    <div class="flex flex-col items-center">
+        <button
+            routerLink="/"
+            class="mt-12 w-60 bg-blue-500 px-5 py-2 text-white shadow-xl transition hover:ease-out hover:scale-110 duration rounded-full">Return To Menu</button>
+    </div>
+
 </div>
