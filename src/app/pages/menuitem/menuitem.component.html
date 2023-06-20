@@ -4,7 +4,30 @@
         &nbsp; Back to Menu
     </a>
 
-    <h1 class="font-bold text-4xl">{{ menuItem.name }}</h1>
+    <div class="flex justify-between">
+        <h1 class="font-bold text-4xl">{{ menuItem.name }}</h1>
+        <div class="favorite">
+            <button
+                class="text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2 mb-2"
+                *ngIf="!menuItemIsOnFavoritesList"
+                (click)="addToFavorites()">
+                <i class="pi pi-star"></i>&nbsp;
+                Add To Favorites
+            </button>
+            <button
+                class="border text-gray-900 hover:bg-gray-200 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2"
+                *ngIf="menuItemIsOnFavoritesList"
+                (click)="removeFromFavorites()">
+                <i class="pi pi-star-fill"></i>&nbsp;
+                Remove from Favorites
+            </button>
+            <!-- <button class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2">
+                <svg aria-hidden="true" class="text-yellow-400 h-8 inline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                <span>Add To Favorites</span>
+            </button> -->
+        </div>
+    </div>
+    
     <p class="text-base text-slate-500">{{ menuItem.description }}</p>
     
     <hr class="w-full my-2 bg-slate-300 border-0">
