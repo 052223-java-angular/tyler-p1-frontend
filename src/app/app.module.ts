@@ -7,12 +7,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AboutComponent } from './pages/about/about.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
@@ -52,6 +53,8 @@ import { CheckoutButtonComponent } from './components/checkout-button/checkout-b
     MessagesModule, // Module to display messages inline
     ToastModule, // Module to display messages in an overlay
     ProgressSpinnerModule, // Module to display progress spinner
+    ToggleButtonModule, // Module for toggle button
+    FormsModule, // Module for forms
   ],
   providers: [MessageService, authInterceptorProviders, NgEventBus], // Array of services to be provided globally
   bootstrap: [AppComponent], // The root component to be bootstrapped
