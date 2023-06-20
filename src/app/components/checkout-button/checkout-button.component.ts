@@ -17,6 +17,7 @@ import { TokenService } from 'src/app/services/token.service';
 export class CheckoutButtonComponent implements OnInit {
   canShow: boolean = false;
   sub: Subscription;
+  loginSub: Subscription;
   loading: boolean = false;
 
   constructor(
@@ -28,33 +29,41 @@ export class CheckoutButtonComponent implements OnInit {
     this.sub = this.eventBus.on(`${EventBusEvents.CART}*`).subscribe((meta) => {
       this.getCartStatus();
     });
+
+    this.loginSub = this.eventBus
+      .on(`${EventBusEvents.LOGIN}*`)
+      .subscribe((meta) => {
+        this.getCartStatus();
+      });
   }
   ngOnInit() {
-    if (this.tokenService.getUser().id) {
-      this.getCartStatus();
-    }
+    this.getCartStatus();
   }
 
   getCartStatus() {
-    this.cartService.getCart().subscribe({
-      next: (data: Cart) => {
-        if (data) {
-          if (data.cartMenuItemOfferResponses.length > 0) {
-            this.canShow = true;
-          } else {
-            this.canShow = false;
+    if (this.tokenService.getUser().id) {
+      this.cartService.getCart().subscribe({
+        next: (data: Cart) => {
+          if (data) {
+            if (data.cartMenuItemOfferResponses.length > 0) {
+              this.canShow = true;
+            } else {
+              this.canShow = false;
+            }
           }
-        }
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: error.error.message,
-          life: AppSettings.DEFAULT_MESSAGE_LIFE,
-        });
-      },
-    });
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message,
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+        },
+      });
+    } else {
+      this.canShow = false;
+    }
   }
 
   checkout() {
