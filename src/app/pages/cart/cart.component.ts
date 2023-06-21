@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
   cart!: Cart;
+  quantityMap = new Map();
 
   constructor(
     private messageService: MessageService,
@@ -32,6 +33,12 @@ export class CartComponent implements OnInit {
       next: (cart: Cart) => {
         if (cart) {
           this.cart = cart;
+          for (const cartMenuItemOffer of cart.cartMenuItemOfferResponses) {
+            this.quantityMap.set(
+              cartMenuItemOffer.id,
+              cartMenuItemOffer.quantity
+            );
+          }
         }
       },
       error: (error) => {
@@ -66,5 +73,39 @@ export class CartComponent implements OnInit {
         });
       },
     });
+  }
+
+  increaseQuantityByOne(item: CartMenuItemOffer) {
+    if (item.quantity < item.maxQuantity) {
+      item.quantity++;
+    }
+  }
+
+  decreaseQuantityByOne(item: CartMenuItemOffer) {
+    if (item.quantity - 1 >= item.minQuantity) {
+      item.quantity--;
+    }
+  }
+
+  updateQuantity(item: CartMenuItemOffer) {
+    this.cartService
+      .updateCartMenuItemOfferQuantity({
+        cartMenuItemOfferId: item.id,
+        quantity: item.quantity,
+      })
+      .subscribe({
+        next: () => {
+          this.quantityMap.set(item.id, item.quantity);
+          this.eventBus.cast(EventBusEvents.UPDATE_MENU_ITEM_IN_CART, '');
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message || error.statusText,
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+        },
+      });
   }
 }
