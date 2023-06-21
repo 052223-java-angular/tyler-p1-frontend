@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CartMenuItemOffer } from '../models/cart-menu-item-offer';
 import { AddCartMenuItemOfferPayload } from '../models/add-cart-menu-item-offer-payload';
 import { Cart } from '../models/cart';
+import { UpdateCartMenuItemOfferPayload } from '../models/update-cart-menu-item-offer-payload';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,12 @@ export class CartService {
     return this.http.delete<void>(
       `${this.baseUrl}/menuitemoffers/${cartMenuItemOfferId}`
     );
+  }
+
+  updateCartMenuItemOfferQuantity(
+    payload: UpdateCartMenuItemOfferPayload
+  ): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/menuitemoffers`, payload);
   }
 
   getCart(): Observable<Cart> {

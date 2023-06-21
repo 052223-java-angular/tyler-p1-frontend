@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Cart } from 'src/app/models/cart';
 import { CartService } from 'src/app/services/cart.service';
@@ -13,8 +19,9 @@ import { Router } from '@angular/router';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
-export class CartComponent implements OnInit {
-  cart!: Cart;
+export class CartComponent implements OnInit, OnChanges {
+  @Input() cart!: Cart;
+  quantityMap = new Map();
 
   constructor(
     private messageService: MessageService,
@@ -27,11 +34,21 @@ export class CartComponent implements OnInit {
     this.getCart();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
+
   getCart() {
     this.cartService.getCart().subscribe({
       next: (cart: Cart) => {
         if (cart) {
           this.cart = cart;
+          for (const cartMenuItemOffer of cart.cartMenuItemOfferResponses) {
+            this.quantityMap.set(
+              cartMenuItemOffer.id,
+              cartMenuItemOffer.quantity
+            );
+          }
         }
       },
       error: (error) => {
@@ -66,5 +83,39 @@ export class CartComponent implements OnInit {
         });
       },
     });
+  }
+
+  increaseQuantityByOne(item: CartMenuItemOffer) {
+    if (item.quantity < item.maxQuantity) {
+      item.quantity++;
+    }
+  }
+
+  decreaseQuantityByOne(item: CartMenuItemOffer) {
+    if (item.quantity - 1 >= item.minQuantity) {
+      item.quantity--;
+    }
+  }
+
+  updateQuantity(item: CartMenuItemOffer) {
+    this.cartService
+      .updateCartMenuItemOfferQuantity({
+        cartMenuItemOfferId: item.id,
+        quantity: item.quantity,
+      })
+      .subscribe({
+        next: () => {
+          this.quantityMap.set(item.id, item.quantity);
+          this.eventBus.cast(EventBusEvents.UPDATE_MENU_ITEM_IN_CART, '');
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message || error.statusText,
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+        },
+      });
   }
 }

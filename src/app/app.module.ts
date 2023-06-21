@@ -14,6 +14,7 @@ import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
@@ -55,6 +56,7 @@ import { CheckoutButtonComponent } from './components/checkout-button/checkout-b
     ProgressSpinnerModule, // Module to display progress spinner
     ToggleButtonModule, // Module for toggle button
     FormsModule, // Module for forms
+    InputNumberModule, // Input unmber module
   ],
   providers: [MessageService, authInterceptorProviders, NgEventBus], // Array of services to be provided globally
   bootstrap: [AppComponent], // The root component to be bootstrapped
