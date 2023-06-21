@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Cart } from 'src/app/models/cart';
 import { CartService } from 'src/app/services/cart.service';
@@ -19,8 +13,8 @@ import { Router } from '@angular/router';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
-export class CartComponent implements OnInit, OnChanges {
-  @Input() cart!: Cart;
+export class CartComponent implements OnInit {
+  cart!: Cart;
   quantityMap = new Map();
 
   constructor(
@@ -32,10 +26,6 @@ export class CartComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getCart();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
 
   getCart() {
