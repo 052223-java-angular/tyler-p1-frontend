@@ -18,6 +18,7 @@ export class MenuItemComponent implements OnInit {
   menuItem!: MenuItem;
   user: any;
   menuItemIsOnFavoritesList: boolean = false;
+  loading: boolean = true;
 
   constructor(
     private messageService: MessageService,
@@ -38,24 +39,30 @@ export class MenuItemComponent implements OnInit {
       menuSection.menuItems.sort((a, b) => a.displayOrder - b.displayOrder);
     }
     this.user = this.tokenService.getUser();
-    this.favoritesService
-      .getFavorite(this.menuItem.menuItemOffers[0].id)
-      .subscribe({
-        next: (data: any) => {
-          console.log(data);
-          if (data) {
-            this.menuItemIsOnFavoritesList = true;
-          }
-        },
-        error: (error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: error.error.message || error.statusText,
-            life: AppSettings.DEFAULT_MESSAGE_LIFE,
-          });
-        },
-      });
+    Promise.all([
+      this.favoritesService
+        .getFavorite(this.menuItem.menuItemOffers[0].id)
+        .subscribe({
+          next: (data: any) => {
+            console.log(data);
+            if (data) {
+              this.menuItemIsOnFavoritesList = true;
+            }
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.message || error.statusText,
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
+          },
+        }),
+    ]).then((/* values */) => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 150);
+    });
   }
 
   addCartMenuItemOffer() {
