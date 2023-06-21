@@ -20,7 +20,7 @@
         <p class="mt-12 text-slate-700">Before proceeding to checkout you must add some items to your cart</p>
     </div>
 
-    <div class="flex justify-between items-center" *ngFor="let item of cart.cartMenuItemOfferResponses">
+    <div class="flex justify-between items-center" *ngFor="let item of updateCart.cartMenuItemOfferResponses, let i = index">
         <div class="flex items-center">
             <div class="text-center mr-8">
                 <div class="">
@@ -42,12 +42,12 @@
                     </button>
                 </div>
                 <div 
-                    *ngIf="quantityMap.get(item.id) != item.quantity"
+                    *ngIf="showUpdateButton(i)"
                     class="">
                     <button
                         class="text-green-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        (click)="updateQuantity(item)">
+                        (click)="updateQuantity(item, i)">
                         Update
                     </button>
                 </div>

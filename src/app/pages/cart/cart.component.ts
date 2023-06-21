@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
   cart!: Cart;
-  quantityMap = new Map();
+  updateCart!: Cart;
 
   constructor(
     private messageService: MessageService,
@@ -33,12 +33,7 @@ export class CartComponent implements OnInit {
       next: (cart: Cart) => {
         if (cart) {
           this.cart = cart;
-          for (const cartMenuItemOffer of cart.cartMenuItemOfferResponses) {
-            this.quantityMap.set(
-              cartMenuItemOffer.id,
-              cartMenuItemOffer.quantity
-            );
-          }
+          this.updateCart = JSON.parse(JSON.stringify(this.cart));
         }
       },
       error: (error) => {
@@ -87,7 +82,7 @@ export class CartComponent implements OnInit {
     }
   }
 
-  updateQuantity(item: CartMenuItemOffer) {
+  updateQuantity(item: CartMenuItemOffer, index: number) {
     this.cartService
       .updateCartMenuItemOfferQuantity({
         cartMenuItemOfferId: item.id,
@@ -95,7 +90,8 @@ export class CartComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.quantityMap.set(item.id, item.quantity);
+          this.cart.cartMenuItemOfferResponses[index].quantity =
+            this.updateCart.cartMenuItemOfferResponses[index].quantity;
           this.eventBus.cast(EventBusEvents.UPDATE_MENU_ITEM_IN_CART, '');
         },
         error: (error) => {
@@ -107,5 +103,12 @@ export class CartComponent implements OnInit {
           });
         },
       });
+  }
+
+  showUpdateButton(index: number) {
+    return (
+      this.cart.cartMenuItemOfferResponses[index].quantity !=
+      this.updateCart.cartMenuItemOfferResponses[index].quantity
+    );
   }
 }
