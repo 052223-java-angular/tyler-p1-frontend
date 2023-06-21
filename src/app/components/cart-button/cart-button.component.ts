@@ -24,7 +24,6 @@ export class CartButtonComponent implements OnInit, OnDestroy {
     private eventBus: NgEventBus
   ) {
     this.sub = this.eventBus.on(`${EventBusEvents.CART}*`).subscribe((meta) => {
-      console.log(meta.data);
       this.getQuantity();
     });
   }

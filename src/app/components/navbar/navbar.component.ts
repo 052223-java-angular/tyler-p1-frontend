@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sub = this.eventBus
       .on(`${EventBusEvents.LOGIN}*`)
       .subscribe((meta) => {
-        console.log(meta.data);
         this.updateLoggedInStatus();
       });
   }
