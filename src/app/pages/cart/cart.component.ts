@@ -123,4 +123,19 @@ export class CartComponent implements OnInit {
       this.updateCart.cartMenuItemOfferResponses[index].quantity
     );
   }
+
+  buildChildOptionValueString(item: CartMenuItemOffer) {
+    let responses: String[] = [];
+    console.log(item);
+    item.childCartMenuItemOffers.sort(function (a, b) {
+      return (
+        a.parentMenuSectionDisplayOrder - b.parentMenuSectionDisplayOrder ||
+        a.displayOrder - b.displayOrder
+      );
+    });
+    for (const child of item.childCartMenuItemOffers) {
+      responses = [...responses, child.name];
+    }
+    return responses.join(', ');
+  }
 }

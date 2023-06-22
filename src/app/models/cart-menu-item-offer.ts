@@ -4,4 +4,9 @@ export interface CartMenuItemOffer {
   name: string;
   maxQuantity: number;
   minQuantity: number;
+  currency: string;
+  price: number;
+  parentMenuSectionDisplayOrder: number;
+  displayOrder: number;
+  childCartMenuItemOffers: CartMenuItemOffer[];
 }
