@@ -75,7 +75,6 @@ export class CheckoutButtonComponent implements OnInit {
       },
       error: (error) => {
         this.loading = false;
-        console.log(error);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

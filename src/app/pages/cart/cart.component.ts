@@ -25,6 +25,14 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.cart = {
+      id: '',
+      cartMenuItemOfferResponses: [],
+    };
+    this.updateCart = {
+      id: '',
+      cartMenuItemOfferResponses: [],
+    };
     this.getCart();
   }
 
