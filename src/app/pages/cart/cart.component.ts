@@ -16,15 +16,14 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   cart!: Cart;
   updateCart!: Cart;
+  loading: boolean = true;
 
   constructor(
     private messageService: MessageService,
     private cartService: CartService,
     private router: Router,
     private eventBus: NgEventBus
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.cart = {
       id: '',
       cartMenuItemOfferResponses: [],
@@ -33,15 +32,20 @@ export class CartComponent implements OnInit {
       id: '',
       cartMenuItemOfferResponses: [],
     };
+  }
+
+  ngOnInit() {
     this.getCart();
   }
 
   getCart() {
+    this.loading = true;
     this.cartService.getCart().subscribe({
       next: (cart: Cart) => {
         if (cart) {
           this.cart = cart;
           this.updateCart = JSON.parse(JSON.stringify(this.cart));
+          this.loading = false;
         }
       },
       error: (error) => {
