@@ -8,6 +8,14 @@ import { TokenService } from 'src/app/services/token.service';
 import { NgEventBus } from 'ng-event-bus';
 import { EventBusEvents } from 'src/app/global/event-bus-events';
 import { FavoritesService } from 'src/app/services/favorites.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { AddCartMenuItemOfferSectionPayload } from 'src/app/models/add-cart-menu-item-offer-section-payload';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-menuitem',
@@ -19,8 +27,11 @@ export class MenuItemComponent implements OnInit {
   user: any;
   menuItemIsOnFavoritesList: boolean = false;
   loading: boolean = true;
+  menuItemForm!: FormGroup;
+  selectedMenuItems: MenuItem[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private messageService: MessageService,
     private cartService: CartService,
     private tokenService: TokenService,
@@ -42,8 +53,24 @@ export class MenuItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // sort menu sections by display order
     if (this.menuItem) {
+      let formBuilderMap = {};
+
+      for (const menuSection of this.menuItem.menuSections) {
+        formBuilderMap = {
+          ...formBuilderMap,
+          [menuSection.id]: [
+            null,
+            menuSection.minimumQuantity > 0
+              ? Validators.required
+              : Validators.nullValidator,
+          ],
+        };
+      }
+
+      this.menuItemForm = this.formBuilder.group(formBuilderMap);
+
+      // sort menu sections by display order
       this.menuItem.menuSections.sort(
         (a, b) => a.displayOrder - b.displayOrder
       );
@@ -84,10 +111,40 @@ export class MenuItemComponent implements OnInit {
   }
 
   addCartMenuItemOffer() {
+    this.loading = true;
+
+    let menuSections: AddCartMenuItemOfferSectionPayload[] = [];
+    const formControlKeys = Object.keys(this.menuItemForm.controls);
+
+    for (let i = 0; i < formControlKeys.length; i++) {
+      let menuItem: any = this.menuItemForm.controls[formControlKeys[i]].value;
+
+      if (Array.isArray(menuItem)) {
+        menuSections = [
+          ...menuSections,
+          {
+            menuSectionId: formControlKeys[i],
+            menuItemOfferIds: [
+              ...menuItem.map((x: any) => x.menuItemOffers[0].id),
+            ],
+          },
+        ];
+      } else {
+        menuSections = [
+          ...menuSections,
+          {
+            menuSectionId: formControlKeys[i],
+            menuItemOfferIds: [menuItem.menuItemOffers[0].id],
+          },
+        ];
+      }
+    }
+
     this.cartService
       .addCartMenuItemOffer({
         menuItemOfferId: this.menuItem.menuItemOffers[0].id,
         quantity: 1,
+        menuSections: menuSections,
       })
       .subscribe({
         next: () => {
@@ -99,8 +156,10 @@ export class MenuItemComponent implements OnInit {
           });
           this.eventBus.cast(EventBusEvents.ADD_MENU_ITEM_TO_CART, '');
           this.router.navigate(['/']);
+          this.loading = false;
         },
         error: (error) => {
+          this.loading = false;
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
@@ -112,8 +171,10 @@ export class MenuItemComponent implements OnInit {
   }
 
   removeFromFavorites() {
+    // this.loading = true;
     this.favoritesService
       .removeFavorite(this.menuItem.menuItemOffers[0].id)
+      .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
           this.menuItemIsOnFavoritesList = false;
@@ -130,10 +191,12 @@ export class MenuItemComponent implements OnInit {
   }
 
   addToFavorites() {
+    // this.loading = true;
     this.favoritesService
       .addFavorite({
         menuItemOfferId: this.menuItem.menuItemOffers[0].id,
       })
+      .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
           this.menuItemIsOnFavoritesList = true;
@@ -147,5 +210,9 @@ export class MenuItemComponent implements OnInit {
           });
         },
       });
+  }
+
+  submitForm() {
+    this.addCartMenuItemOffer();
   }
 }
