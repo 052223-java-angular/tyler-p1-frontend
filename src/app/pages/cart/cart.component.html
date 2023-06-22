@@ -4,7 +4,7 @@
     <hr class="w-full my-2 bg-slate-300 border-0">
 
     <div 
-        *ngIf="cart.cartMenuItemOfferResponses.length == 0"
+        *ngIf="!this.loading && cart.cartMenuItemOfferResponses.length == 0"
         class="flex flex-col items-center">
         <div>
             <svg 
