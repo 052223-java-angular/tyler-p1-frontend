@@ -126,7 +126,6 @@ export class CartComponent implements OnInit {
 
   buildChildOptionValueString(item: CartMenuItemOffer) {
     let responses: String[] = [];
-    console.log(item);
     item.childCartMenuItemOffers.sort(function (a, b) {
       return (
         a.parentMenuSectionDisplayOrder - b.parentMenuSectionDisplayOrder ||
