@@ -1,29 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NgEventBus } from 'ng-event-bus';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { CheckoutButtonComponent } from './components/checkout-button/checkout-button.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule, ToastModule, HttpClientModule],
+      declarations: [AppComponent, NavbarComponent, CheckoutButtonComponent],
+      providers: [NgEventBus, MessageService],
+    })
+  );
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'my-angular-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('my-angular-app');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('my-angular-app app is running!');
   });
 });

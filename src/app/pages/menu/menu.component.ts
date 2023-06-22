@@ -16,7 +16,14 @@ export class MenuComponent implements OnInit {
   constructor(
     private menuService: MenuService,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.menu = {
+      id: '',
+      name: '',
+      disclaimer: '',
+      menuSections: [],
+    };
+  }
 
   ngOnInit(): void {
     this.menuService.getDefault().subscribe({

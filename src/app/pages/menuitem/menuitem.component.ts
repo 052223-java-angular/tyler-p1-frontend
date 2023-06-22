@@ -28,41 +28,59 @@ export class MenuItemComponent implements OnInit {
     private router: Router,
     private eventBus: NgEventBus
   ) {
-    this.menuItem =
-      this.router.getCurrentNavigation()?.extras.state?.['menuItem'];
+    this.menuItem = this.router.getCurrentNavigation()?.extras.state?.[
+      'menuItem'
+    ] || {
+      id: '',
+      name: '',
+      description: '',
+      menuItemOffers: [],
+      menuSections: [],
+      displayOrder: 1,
+      imageUrl: '',
+    };
   }
 
   ngOnInit(): void {
     // sort menu sections by display order
-    this.menuItem.menuSections.sort((a, b) => a.displayOrder - b.displayOrder);
-    for (let menuSection of this.menuItem.menuSections) {
-      menuSection.menuItems.sort((a, b) => a.displayOrder - b.displayOrder);
+    if (this.menuItem) {
+      this.menuItem.menuSections.sort(
+        (a, b) => a.displayOrder - b.displayOrder
+      );
+      for (let menuSection of this.menuItem.menuSections) {
+        menuSection.menuItems.sort((a, b) => a.displayOrder - b.displayOrder);
+      }
     }
+
     this.user = this.tokenService.getUser();
-    Promise.all([
-      this.favoritesService
-        .getFavorite(this.menuItem.menuItemOffers[0].id)
-        .subscribe({
-          next: (data: any) => {
-            console.log(data);
-            if (data) {
-              this.menuItemIsOnFavoritesList = true;
-            }
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error.message || error.statusText,
-              life: AppSettings.DEFAULT_MESSAGE_LIFE,
-            });
-          },
-        }),
-    ]).then((/* values */) => {
-      setTimeout(() => {
-        this.loading = false;
-      }, 150);
-    });
+
+    if (this.user.id) {
+      Promise.all([
+        this.favoritesService
+          .getFavorite(this.menuItem.menuItemOffers[0].id)
+          .subscribe({
+            next: (data: any) => {
+              if (data) {
+                this.menuItemIsOnFavoritesList = true;
+              }
+            },
+            error: (error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: error.error.message || error.statusText,
+                life: AppSettings.DEFAULT_MESSAGE_LIFE,
+              });
+            },
+          }),
+      ]).then((/* values */) => {
+        setTimeout(() => {
+          this.loading = false;
+        }, 150);
+      });
+    } else {
+      this.loading = false;
+    }
   }
 
   addCartMenuItemOffer() {

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CartComponent } from './cart.component';
+import { MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
+import { NgEventBus } from 'ng-event-bus';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -8,7 +11,9 @@ describe('CartComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CartComponent]
+      declarations: [CartComponent],
+      imports: [HttpClientModule],
+      providers: [MessageService, NgEventBus],
     });
     fixture = TestBed.createComponent(CartComponent);
     component = fixture.componentInstance;

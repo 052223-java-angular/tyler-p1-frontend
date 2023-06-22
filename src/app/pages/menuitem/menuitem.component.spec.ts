@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuItemComponent } from './menuitem.component';
+import { MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
+import { NgEventBus } from 'ng-event-bus';
 
 describe('MenuItemComponent', () => {
   let component: MenuItemComponent;
@@ -9,6 +12,8 @@ describe('MenuItemComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MenuItemComponent],
+      imports: [HttpClientModule],
+      providers: [MessageService, NgEventBus],
     });
     fixture = TestBed.createComponent(MenuItemComponent);
     component = fixture.componentInstance;
