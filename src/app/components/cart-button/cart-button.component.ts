@@ -35,13 +35,9 @@ export class CartButtonComponent implements OnInit, OnDestroy {
   }
 
   getQuantity() {
-    this.cartService.getCart().subscribe({
-      next: (data: Cart) => {
-        if (data) {
-          this.quantity = data.cartMenuItemOfferResponses.reduce((acc, obj) => {
-            return acc + obj.quantity;
-          }, 0);
-        }
+    this.cartService.getCartCount().subscribe({
+      next: (data) => {
+        this.quantity = Number(data.headers.get('X-Total-Count'));
       },
       error: (error) => {
         this.messageService.add({

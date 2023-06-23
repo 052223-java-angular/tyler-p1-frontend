@@ -44,4 +44,10 @@ export class CartService {
   checkout(): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/checkout`, {});
   }
+
+  getCartCount(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/count`, {
+      observe: 'response',
+    });
+  }
 }

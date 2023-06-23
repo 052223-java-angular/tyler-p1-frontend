@@ -28,7 +28,6 @@ export class MenuItemComponent implements OnInit {
   menuItemIsOnFavoritesList: boolean = false;
   loading: boolean = true;
   menuItemForm!: FormGroup;
-  selectedMenuItems: MenuItem[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
