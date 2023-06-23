@@ -42,14 +42,13 @@ export class CheckoutButtonComponent implements OnInit {
 
   getCartStatus() {
     if (this.tokenService.getUser().id) {
-      this.cartService.getCart().subscribe({
-        next: (data: Cart) => {
-          if (data) {
-            if (data.cartMenuItemOfferResponses.length > 0) {
-              this.canShow = true;
-            } else {
-              this.canShow = false;
-            }
+      this.cartService.getCartCount().subscribe({
+        next: (data) => {
+          const count = Number(data.headers.get('X-Total-Count'));
+          if (count > 0) {
+            this.canShow = true;
+          } else {
+            this.canShow = false;
           }
         },
         error: (error) => {

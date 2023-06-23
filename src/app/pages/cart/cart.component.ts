@@ -164,4 +164,24 @@ export class CartComponent implements OnInit {
       AppSettings.CURRENCY_MAP[item.currency]
     );
   }
+
+  calculateNumberOfItemsInCart() {
+    return this.cart.cartMenuItemOfferResponses.reduce(
+      (accumulator, item) => accumulator + item.quantity,
+      0
+    );
+  }
+
+  calculateTotal() {
+    return this.cart.cartMenuItemOfferResponses.reduce(
+      (total, item) =>
+        total +
+        item.price * item.quantity +
+        item.childCartMenuItemOffers.reduce(
+          (subTotal, child) => subTotal + child.price * child.quantity,
+          0
+        ),
+      0
+    );
+  }
 }
