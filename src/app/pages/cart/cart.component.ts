@@ -106,6 +106,12 @@ export class CartComponent implements OnInit {
         next: () => {
           this.cart.cartMenuItemOfferResponses[index].quantity =
             this.updateCart.cartMenuItemOfferResponses[index].quantity;
+          this.cart.cartMenuItemOfferResponses[
+            index
+          ].childCartMenuItemOffers.forEach((childItem) => {
+            childItem.quantity =
+              this.updateCart.cartMenuItemOfferResponses[index].quantity;
+          });
           this.eventBus.cast(EventBusEvents.UPDATE_MENU_ITEM_IN_CART, '');
         },
         error: (error) => {

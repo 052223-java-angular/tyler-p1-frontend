@@ -54,6 +54,7 @@
                 </div>
             </ng-container>
 
+            <DIV>TEST</DIV>
             <ng-container
                 *ngIf="menuSection.minimumQuantity == 0 && !menuSection.maximumQuantity">
                 <p-multiSelect #multiselect 
@@ -64,10 +65,10 @@
                     defaultLabel="Select"
                     styleClass="flex">
                     <ng-template let-value pTemplate="selectedItems">
-                        <ng-container *ngFor="let option of menuItemForm.controls[menuSection.id].value let i = index">
+                        <ng-container *ngFor="let option of menuItemForm.controls[menuSection.id].value, let i = index">
                             <span>{{option.name}}{{ i < menuItemForm.controls[menuSection.id].value.length - 1 ? ", " : ""}}</span>
                         </ng-container>
-                        <div *ngIf="!menuItemForm.controls[menuSection.id].value || menuItemForm.controls[menuSection.id].value.length === 0" class="country-placeholder">
+                        <div *ngIf="!menuItemForm.controls[menuSection.id].value || menuItemForm.controls[menuSection.id].value.length === 0" class="">
                             Select {{ menuSection.name }}
                         </div>
                     </ng-template>
