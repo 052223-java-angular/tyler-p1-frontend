@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -62,7 +62,12 @@ import { CheckoutButtonComponent } from './components/checkout-button/checkout-b
     RadioButtonModule, // Radio button module
     MultiSelectModule, // MultiSelect Module
   ],
-  providers: [MessageService, authInterceptorProviders, NgEventBus], // Array of services to be provided globally
+  providers: [
+    MessageService,
+    authInterceptorProviders,
+    NgEventBus,
+    { provide: LOCALE_ID, useValue: 'en-US' },
+  ], // Array of services to be provided globally
   bootstrap: [AppComponent], // The root component to be bootstrapped
 })
 export class AppModule {}

@@ -1,8 +1,12 @@
-<div class="w-9/12 flex flex-col gap-7 my-20 mx-auto">
-
-    <h1 class="font-bold text-4xl">Your Cart</h1>    
+<div 
+    *ngIf="!this.loading"
+    class="w-9/12 flex flex-col gap-7 my-20 mx-auto">
+    <div 
+        class="flex items-end">
+        <h1 class="font-bold text-4xl">Your Cart</h1>
+        <span class="text-lg ml-2">{{ cart.cartMenuItemOfferResponses.length }} item{{cart.cartMenuItemOfferResponses.length == 1 ? '' : 's'}}</span>
+    </div>
     <hr class="w-full my-2 bg-slate-300 border-0">
-
     <div 
         *ngIf="!this.loading && cart.cartMenuItemOfferResponses.length == 0"
         class="flex flex-col items-center">
@@ -19,7 +23,6 @@
         <h1 class="font-bold text-6xl text-slate-700">Your Cart Is Currently Empty!</h1>
         <p class="mt-12 text-slate-700">Before proceeding to checkout you must add some items to your cart</p>
     </div>
-
     <div class="flex justify-between items-center" *ngFor="let item of updateCart.cartMenuItemOfferResponses, let i = index">
         <div class="flex items-center">
             <div class="text-center mr-8">
@@ -57,13 +60,17 @@
             <div>
                 <div>
                     {{ item.name }}
+                    <small class="ml-1 text-slate-500">({{item.price | currency: item.currency : 'symbol'}})</small>
                 </div>
                 <div class="text-slate-500">
                     <small>{{ this.buildChildOptionValueString(item) }}</small>
                 </div>
             </div>
         </div>
-        <div class="flex">
+        <div class="flex items-baseline">
+            <div class="mr-8">
+                <p class="text-blue-700 text-sm">{{ calculateCartMenuItemOfferPrice(item) }}</p>
+            </div>
             <button 
                 class="text-slate-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -72,11 +79,13 @@
             </button>
         </div>
     </div>
-
     <div class="flex flex-col items-center">
         <button
             routerLink="/"
             class="mt-12 w-60 bg-blue-500 px-5 py-2 text-white shadow-xl transition hover:ease-out hover:scale-110 duration rounded-full">Return To Menu</button>
     </div>
-
+</div>
+<div
+    *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
 </div>

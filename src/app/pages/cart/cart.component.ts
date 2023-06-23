@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Cart } from 'src/app/models/cart';
 import { CartService } from 'src/app/services/cart.service';
@@ -7,6 +7,7 @@ import { EventBusEvents } from 'src/app/global/event-bus-events';
 import { AppSettings } from 'src/app/global/app-settings';
 import { CartMenuItemOffer } from 'src/app/models/cart-menu-item-offer';
 import { Router } from '@angular/router';
+import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,8 @@ export class CartComponent implements OnInit {
     private messageService: MessageService,
     private cartService: CartService,
     private router: Router,
-    private eventBus: NgEventBus
+    private eventBus: NgEventBus,
+    @Inject(LOCALE_ID) private locale: string
   ) {
     this.cart = {
       id: '',
@@ -133,8 +135,33 @@ export class CartComponent implements OnInit {
       );
     });
     for (const child of item.childCartMenuItemOffers) {
-      responses = [...responses, child.name];
+      responses = [
+        ...responses,
+        `${child.name}${
+          child.price > 0
+            ? ' (' +
+              formatCurrency(
+                child.price,
+                this.locale,
+                AppSettings.CURRENCY_MAP[child.currency]
+              ) +
+              ')'
+            : ''
+        }`,
+      ];
     }
     return responses.join(', ');
+  }
+
+  calculateCartMenuItemOfferPrice(item: CartMenuItemOffer) {
+    let price = item.price;
+    for (let child of item.childCartMenuItemOffers) {
+      price += child.price;
+    }
+    return formatCurrency(
+      price,
+      this.locale,
+      AppSettings.CURRENCY_MAP[item.currency]
+    );
   }
 }
