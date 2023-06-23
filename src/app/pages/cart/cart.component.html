@@ -4,7 +4,7 @@
     <div 
         class="flex items-end">
         <h1 class="font-bold text-4xl">Your Cart</h1>
-        <span class="text-lg ml-2">{{ cart.cartMenuItemOfferResponses.length }} item{{cart.cartMenuItemOfferResponses.length == 1 ? '' : 's'}}</span>
+        <span class="text-lg ml-2">{{ calculateNumberOfItemsInCart() }} item{{ calculateNumberOfItemsInCart() == 1 ? '' : 's'}}</span>
     </div>
     <hr class="w-full my-2 bg-slate-300 border-0">
     <div 
@@ -78,6 +78,11 @@
                 Remove
             </button>
         </div>
+    </div>
+    <div 
+        class="flex ml-auto items-end mt-12">
+        <h1 class="text-2xl">Total</h1>
+        <span class="text-lg ml-2">{{ calculateTotal() }}</span>
     </div>
     <div class="flex flex-col items-center">
         <button
