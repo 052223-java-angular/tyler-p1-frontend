@@ -118,22 +118,32 @@ export class MenuItemComponent implements OnInit {
     for (let i = 0; i < formControlKeys.length; i++) {
       let menuItem: any = this.menuItemForm.controls[formControlKeys[i]].value;
 
-      if (Array.isArray(menuItem)) {
-        menuSections = [
-          ...menuSections,
-          {
-            menuSectionId: formControlKeys[i],
-            menuItemOfferIds: [
-              ...menuItem.map((x: any) => x.menuItemOffers[0].id),
-            ],
-          },
-        ];
+      if (menuItem) {
+        if (Array.isArray(menuItem)) {
+          menuSections = [
+            ...menuSections,
+            {
+              menuSectionId: formControlKeys[i],
+              menuItemOfferIds: [
+                ...menuItem.map((x: any) => x.menuItemOffers[0].id),
+              ],
+            },
+          ];
+        } else {
+          menuSections = [
+            ...menuSections,
+            {
+              menuSectionId: formControlKeys[i],
+              menuItemOfferIds: [menuItem.menuItemOffers[0].id],
+            },
+          ];
+        }
       } else {
         menuSections = [
           ...menuSections,
           {
             menuSectionId: formControlKeys[i],
-            menuItemOfferIds: [menuItem.menuItemOffers[0].id],
+            menuItemOfferIds: [],
           },
         ];
       }
