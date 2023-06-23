@@ -45,11 +45,7 @@ export class CheckoutButtonComponent implements OnInit {
       this.cartService.getCartCount().subscribe({
         next: (data) => {
           const count = Number(data.headers.get('X-Total-Count'));
-          if (count > 0) {
-            this.canShow = true;
-          } else {
-            this.canShow = false;
-          }
+          this.canShow = count > 0;
         },
         error: (error) => {
           this.messageService.add({
