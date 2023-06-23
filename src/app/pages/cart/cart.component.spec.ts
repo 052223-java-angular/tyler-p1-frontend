@@ -4,6 +4,7 @@ import { CartComponent } from './cart.component';
 import { MessageService } from 'primeng/api';
 import { HttpClientModule } from '@angular/common/http';
 import { NgEventBus } from 'ng-event-bus';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -12,7 +13,7 @@ describe('CartComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CartComponent],
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, ProgressSpinnerModule],
       providers: [MessageService, NgEventBus],
     });
     fixture = TestBed.createComponent(CartComponent);
