@@ -33,6 +33,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   updateLoggedInStatus(): void {
     if (this.tokenService.getUser().id) {
       this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
     }
   }
 

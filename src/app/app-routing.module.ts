@@ -11,6 +11,7 @@ import { SuccessComponent } from './pages/checkout/success/success.component';
 import { CancelComponent } from './pages/checkout/cancel/cancel.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderComponent } from './pages/orders/order/order.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: MenuComponent }, // Route for the home page
@@ -19,11 +20,23 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Route for the login page
   { path: 'menu', component: MenuComponent },
   { path: 'menuItem', component: MenuItemComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'checkout/success', component: SuccessComponent },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'checkout/success',
+    component: SuccessComponent,
+    canActivate: [AuthGuardService],
+  },
   { path: 'checkout/cancel', component: CancelComponent },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'orders/:id', component: OrderComponent },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'orders/:id',
+    component: OrderComponent,
+    canActivate: [AuthGuardService],
+  },
   { path: '**', component: NotFoundComponent }, // Route for handling not-found pages
 ];
 
