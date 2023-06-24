@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OrdersComponent } from './orders.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+import { ActivatedRoute } from '@angular/router';
 
 describe('OrdersComponent', () => {
   let component: OrdersComponent;
@@ -11,7 +13,7 @@ describe('OrdersComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [OrdersComponent],
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, TableModule],
       providers: [MessageService],
     });
     fixture = TestBed.createComponent(OrdersComponent);
