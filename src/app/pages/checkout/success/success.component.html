@@ -1,6 +1,10 @@
-<section>
-    <p>
-      We appreciate your business! If you have any questions, please email
-      <a href="mailto:orders@example.com">orders@example.com</a>.
-    </p>
-  </section>
+<div
+  class="flex items-center flex-col my-20">
+  <h1 class="font-bold text-6xl">Thank you for ordering!</h1>
+  <p class="font-bold text-2xl mt-4">Your latest order:</p>
+  <a class="text-blue-500 underline underline-offset-4 mt-4" routerLink="/">Back to Menu</a>
+  <ng-container
+    *ngIf="order">
+    <app-order [id]="order.id"></app-order>
+  </ng-container>
+</div>
