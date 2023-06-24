@@ -18,7 +18,10 @@ export class SuccessComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getLatest();
+    setTimeout(() => {
+      this.getLatest();
+      this.eventBus.cast(EventBusEvents.REMOVE_MENU_ITEM_TO_CART, '');
+    }, 1000);
   }
 
   getLatest() {
