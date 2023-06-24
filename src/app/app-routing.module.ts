@@ -9,6 +9,7 @@ import { MenuItemComponent } from './pages/menuitem/menuitem.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { SuccessComponent } from './pages/checkout/success/success.component';
 import { CancelComponent } from './pages/checkout/cancel/cancel.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent }, // Route for the home page
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'checkout/success', component: SuccessComponent },
   { path: 'checkout/cancel', component: CancelComponent },
+  { path: 'orders', component: OrdersComponent },
   { path: '**', component: NotFoundComponent }, // Route for handling not-found pages
 ];
 
