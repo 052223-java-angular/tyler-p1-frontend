@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from 'src/app/global/app-settings';
@@ -11,6 +11,7 @@ import { OrderService } from 'src/app/order.service';
 })
 export class OrderComponent implements OnInit {
   order: any;
+  @Input() id: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -23,13 +24,17 @@ export class OrderComponent implements OnInit {
   }
 
   getOrder() {
-    const orderId = this.route.snapshot.paramMap
-      ? this.route.snapshot.paramMap.get('id')
-      : undefined;
+    const orderId =
+      this.id ||
+      (this.route.snapshot.paramMap
+        ? this.route.snapshot.paramMap.get('id')
+        : undefined);
+    console.log('orderId: ', orderId);
     if (orderId) {
       this.orderService.getById(orderId).subscribe({
         next: (order) => {
           this.order = order;
+          console.log(order);
         },
         error: (error) => {
           this.messageService.add({

@@ -18,4 +18,8 @@ export class OrderService {
   getById(id: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
+
+  getLatest(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/latest`);
+  }
 }

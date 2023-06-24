@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SuccessComponent } from './success.component';
 import { NgEventBus } from 'ng-event-bus';
+import { MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('SuccessComponent', () => {
   let component: SuccessComponent;
@@ -10,7 +12,8 @@ describe('SuccessComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SuccessComponent],
-      providers: [NgEventBus],
+      imports: [HttpClientModule],
+      providers: [NgEventBus, MessageService],
     });
     fixture = TestBed.createComponent(SuccessComponent);
     component = fixture.componentInstance;
