@@ -23,7 +23,9 @@ export class OrderComponent implements OnInit {
   }
 
   getOrder() {
-    const orderId = this.route.snapshot.paramMap.get('id');
+    const orderId = this.route.snapshot.paramMap
+      ? this.route.snapshot.paramMap.get('id')
+      : undefined;
     if (orderId) {
       this.orderService.getById(orderId).subscribe({
         next: (order) => {
