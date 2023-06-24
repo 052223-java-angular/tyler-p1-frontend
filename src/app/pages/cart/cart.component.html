@@ -79,10 +79,48 @@
             </button>
         </div>
     </div>
+    <hr class="w-full my-2 bg-slate-300 border-0">
     <div 
-        class="flex ml-auto items-end mt-12">
+        *ngIf="points > 0 && calculateNumberOfItemsInCart() > 0"
+        class="flex ml-auto items-end flex-col w-2/5 py-4 px-8">
+        <h1 class="text-lg text-[#645aff] font-bold mr-auto">Redeem Points</h1>
+        <span class="mr-auto text-[#645aff]">{{ pointsSlider }}</span>
+        <div class="flex mr-auto w-full items-baseline">
+            <p-slider 
+                [(ngModel)]="pointsSlider" 
+                class="w-full mr-16"
+                [min]="0"
+                [max]="calculateMaxPointsUserCanRedeem()"
+                [disabled]="this.points === 0 || cart.points > 0"></p-slider>
+            <button
+                *ngIf="cart.points === 0"
+                class="w-48 bg-[#645aff] px-5 py-2 text-white shadow-xl transition hover:ease-out hover:scale-110 duration rounded disabled:opacity-25"
+                [disabled]="pointsSlider <= 0 || cart.points > 0"
+                (click)="redeemPoints()">
+                Redeem for {{ pointsSlider / 100 | currency: 'USD' : 'symbol' }}
+            </button>
+            <button
+                *ngIf="cart.points > 0"
+                class="w-48 bg-[#645aff] px-5 py-2 text-white shadow-xl transition hover:ease-out hover:scale-110 duration rounded disabled:opacity-25"
+                [disabled]="cart.points === 0"
+                (click)="cancelRedeemPoints()">
+                Remove points
+        </button>
+        </div>
+    </div>
+
+    <div 
+        *ngIf="cart.points === 0 && calculateNumberOfItemsInCart() > 0"
+        class="flex ml-auto items-end mt-8">
         <h1 class="text-2xl">Total</h1>
         <span class="text-lg ml-2 text-slate-500">{{ calculateTotal() | currency: 'USD' : 'symbol' }}</span>
+    </div>
+    <div 
+        *ngIf="cart.points > 0 && calculateNumberOfItemsInCart() > 0"
+        class="flex ml-auto items-end mt-8">
+        <h1 class="text-2xl">Total</h1>
+        <span class="text-lg ml-2 text-slate-500">
+            {{ calculateTotal() | currency: 'USD' : 'symbol' }} - {{ (points / 100) | currency: 'USD' : 'symbol' }} = {{ calculateTotal() - (points / 100) | currency : 'USD' : 'symbol' }} </span>
     </div>
     <div class="flex flex-col items-center">
         <button

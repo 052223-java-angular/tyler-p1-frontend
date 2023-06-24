@@ -50,4 +50,14 @@ export class CartService {
       observe: 'response',
     });
   }
+
+  redeemPoints(amount: number): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/redeempoints`, {
+      amount,
+    });
+  }
+
+  removeRedeemPoints(): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/redeempoints/remove`, {});
+  }
 }
