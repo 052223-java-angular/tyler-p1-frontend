@@ -20,7 +20,6 @@ export class SuccessComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.getLatest();
-      this.eventBus.cast(EventBusEvents.REMOVE_MENU_ITEM_TO_CART, '');
     }, 1000);
   }
 
@@ -28,6 +27,7 @@ export class SuccessComponent implements OnInit {
     this.orderService.getLatest().subscribe({
       next: (order) => {
         this.order = order;
+        this.eventBus.cast(EventBusEvents.REMOVE_MENU_ITEM_TO_CART, '');
       },
       error: (error) => {
         this.messageService.add({
