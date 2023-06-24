@@ -17,7 +17,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { Slider, SliderModule } from 'primeng/slider';
+import { SliderModule } from 'primeng/slider';
+import { TableModule } from 'primeng/table';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
@@ -29,6 +30,7 @@ import { SuccessComponent } from './pages/checkout/success/success.component';
 import { CancelComponent } from './pages/checkout/cancel/cancel.component';
 import { CheckoutButtonComponent } from './components/checkout-button/checkout-button.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { OrderComponent } from './pages/orders/order/order.component';
 
 /**
  * The root module of the Angular application.
@@ -49,6 +51,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
     CancelComponent,
     CheckoutButtonComponent,
     OrdersComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment
@@ -65,6 +68,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
     RadioButtonModule, // Radio button module
     MultiSelectModule, // MultiSelect Module
     SliderModule, // Slider Module
+    TableModule, // Table Module
   ],
   providers: [
     MessageService,
