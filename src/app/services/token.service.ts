@@ -43,11 +43,26 @@ export class TokenService {
   }
 
   public getUser(): any {
+    if (this.isTokenExpired()) {
+      this.signOut();
+    }
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
+    } else {
+      this.signOut();
     }
 
     return {};
+  }
+
+  private isTokenExpired(): boolean {
+    const jwt = this.getToken();
+    if (!jwt) {
+      return true;
+    }
+    const jwtPayload = JSON.parse(window.atob(jwt.split('.')[1]));
+    const expirationDate = new Date(jwtPayload.exp * 1000);
+    return new Date().getTime() > expirationDate.getTime();
   }
 }
