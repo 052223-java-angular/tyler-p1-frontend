@@ -24,6 +24,7 @@ import { finalize } from 'rxjs';
 })
 export class MenuItemComponent implements OnInit {
   menuItem!: MenuItem;
+  backLink: string;
   user: any;
   menuItemIsOnFavoritesList: boolean = false;
   loading: boolean = true;
@@ -49,6 +50,8 @@ export class MenuItemComponent implements OnInit {
       displayOrder: 1,
       imageUrl: '',
     };
+    this.backLink =
+      this.router.getCurrentNavigation()?.extras.state?.['backLink'] || '/';
   }
 
   ngOnInit(): void {

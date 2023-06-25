@@ -46,6 +46,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
           ...(this.isLoggedIn
             ? [
                 {
+                  label: 'Favorites',
+                  icon: 'pi pi-star-fill',
+                  routerLink: ['/favorites'],
+                },
+              ]
+            : []),
+          ...(this.isLoggedIn
+            ? [
+                {
                   label: 'Orders',
                   icon: 'pi pi-list',
                   routerLink: ['/orders'],

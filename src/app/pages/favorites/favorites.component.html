@@ -1,0 +1,49 @@
+<div
+    *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<div
+    *ngIf="!loading"
+    class="flex flex-col items-center my-20">
+    <h1 class="font-bold text-4xl">FAVORITES</h1>
+        <div 
+            *ngIf="!this.loading && favorites.length == 0"
+            class="flex flex-col items-center mt-16">
+            <i class="pi pi-star text-slate-700"
+                style="font-size: 10.5rem"></i>
+            <h1 class="font-bold text-6xl text-slate-700 mt-8">You have no favorites!</h1>
+            <p class="mt-12 text-slate-700">Add some items to quickly access your favorites</p>
+        </div>
+
+    <div class="flex items-center gap-5 my-20 w-9/12 flex-wrap justify-center">
+        <section 
+            *ngFor="let favorite of favorites"
+            class="flex items-center flex-wrap">
+            <div class="flex menu-items flex-wrap items-center justify-center relative">
+                <a 
+                    routerLink="/menuItem"
+                    [state]="{ menuItem: favorite.menuItemResponse, backLink: '/favorites' }"
+                    class="flex border-2 border-slate-500 p-4 m-3 min-w-xl">
+                        <div 
+                            class="flex flex col mr-4">
+                            <img width="200" height="160" src="https://i.imgur.com/ghlcELn.jpg">
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-lg">{{ favorite.menuItemResponse.name }}</p>
+                            <p class="text-sm text-slate-500">{{ favorite.menuItemResponse.description }}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-sm text-slate-700">{{ getCurrencySymbol(favorite.menuItemResponse.menuItemOffers[0].currency) }}{{ favorite.menuItemResponse.menuItemOffers[0].price }}</p>
+                        </div>
+                </a>
+                <button 
+                    class="favorite-toggle text-slate-500">
+                    <i class="pi pi-star text-slate-500"
+                    style="font-size: 1.5rem"
+                    (click)="removeFavorite(favorite.menuItemResponse.menuItemOffers[0].id)"></i>
+                    Remove
+                </button>
+            </div>
+        </section>
+    </div>
+</div>

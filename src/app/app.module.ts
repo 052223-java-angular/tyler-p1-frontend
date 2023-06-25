@@ -33,6 +33,7 @@ import { CancelComponent } from './pages/checkout/cancel/cancel.component';
 import { CheckoutButtonComponent } from './components/checkout-button/checkout-button.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderComponent } from './pages/orders/order/order.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 /**
  * The root module of the Angular application.
@@ -54,6 +55,7 @@ import { OrderComponent } from './pages/orders/order/order.component';
     CheckoutButtonComponent,
     OrdersComponent,
     OrderComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule, // Required module for running the application in a browser environment

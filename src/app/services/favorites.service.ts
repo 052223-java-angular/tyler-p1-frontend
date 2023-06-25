@@ -11,6 +11,10 @@ export class FavoritesService {
   baseUrl = `${AppSettings.P1_API_URL}/favorites`;
   constructor(private http: HttpClient) {}
 
+  getFavorites(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/`);
+  }
+
   getFavorite(menuItemOfferId: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${menuItemOfferId}`);
   }
