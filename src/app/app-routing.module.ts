@@ -13,6 +13,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderComponent } from './pages/orders/order/order.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { FourOhFourComponent } from './pages/four-oh-four/four-oh-four.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent }, // Route for the home page
@@ -43,6 +44,7 @@ const routes: Routes = [
     component: FavoritesComponent,
     canActivate: [AuthGuardService],
   },
+  { path: '404', component: FourOhFourComponent },
   { path: '**', component: NotFoundComponent }, // Route for handling not-found pages
 ];
 
