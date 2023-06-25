@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenuComponent } from './menu.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -11,7 +12,7 @@ describe('MenuComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MenuComponent],
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, ProgressSpinnerModule],
       providers: [MessageService],
     });
     fixture = TestBed.createComponent(MenuComponent);
