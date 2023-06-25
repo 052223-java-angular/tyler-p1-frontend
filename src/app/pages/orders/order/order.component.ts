@@ -13,6 +13,7 @@ import { OrderService } from 'src/app/order.service';
 export class OrderComponent implements OnInit {
   order: any;
   @Input() id: string = '';
+  @Input() backLink: string = '/orders';
 
   constructor(
     private route: ActivatedRoute,

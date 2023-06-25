@@ -5,6 +5,6 @@
   <a class="text-blue-500 underline underline-offset-4 mt-4" routerLink="/">Back to Menu</a>
   <ng-container
     *ngIf="order">
-    <app-order [id]="order.id"></app-order>
+    <app-order [id]="order.id" [backLink]="''"></app-order>
   </ng-container>
 </div>
