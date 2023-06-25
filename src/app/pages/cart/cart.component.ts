@@ -138,6 +138,9 @@ export class CartComponent implements OnInit {
             childItem.quantity =
               this.updateCart.cartMenuItemOfferResponses[index].quantity;
           });
+          if (this.points > (this.calculateTotal() - 0.5) * 100) {
+            this.cancelRedeemPoints();
+          }
           this.eventBus.cast(EventBusEvents.UPDATE_MENU_ITEM_IN_CART, '');
         },
         error: (error) => {
@@ -254,7 +257,9 @@ export class CartComponent implements OnInit {
   }
 
   calculateMaxPointsUserCanRedeem() {
-    let value = Math.min(this.points, (this.calculateTotal() - 0.5) * 100);
+    const minimumOrderAmountPointsEquivalent =
+      (this.calculateTotal() - 0.5) * 100;
+    let value = Math.min(this.points, minimumOrderAmountPointsEquivalent);
     return value;
   }
 }
