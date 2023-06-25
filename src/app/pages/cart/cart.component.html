@@ -83,7 +83,10 @@
     <div 
         *ngIf="points > 0 && calculateNumberOfItemsInCart() > 0"
         class="flex ml-auto items-end flex-col w-2/5 py-4 px-8">
-        <h1 class="text-lg text-[#645aff] font-bold mr-auto">Redeem Points</h1>
+        <div class="flex w-full">
+            <h1 class="text-lg text-[#645aff] font-bold mr-auto">Redeem Points</h1>
+            <small class="text-purple-500 text-underline">(Stripe requires $0.50 minimum for order)</small>
+        </div>
         <span class="mr-auto text-[#645aff]">{{ pointsSlider }}</span>
         <div class="flex mr-auto w-full items-baseline">
             <p-slider 
