@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.menuService.getDefault().subscribe({
+    this.menuService.getById(AppSettings.DEFAULT_MENU_ID).subscribe({
       next: (value: Menu) => {
         this.menu = value;
       },
