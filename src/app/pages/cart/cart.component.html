@@ -120,7 +120,7 @@
         class="flex ml-auto items-end mt-8">
         <h1 class="text-2xl">Total</h1>
         <span class="text-lg ml-2 text-slate-500">
-            {{ calculateTotal() | currency: 'USD' : 'symbol' }} - {{ (points / 100) | currency: 'USD' : 'symbol' }} = {{ calculateTotal() - (points / 100) | currency : 'USD' : 'symbol' }} </span>
+            {{ calculateTotal() | currency: 'USD' : 'symbol' }} - {{ (this.cart.points / 100) | currency: 'USD' : 'symbol' }} = {{ calculateTotal() - (this.cart.points / 100) | currency : 'USD' : 'symbol' }} </span>
     </div>
     <div class="flex flex-col items-center">
         <button
