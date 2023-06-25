@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { finalize } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
@@ -12,6 +13,7 @@ import { MenuService } from 'src/app/services/menu.service';
 })
 export class MenuComponent implements OnInit {
   menu!: Menu;
+  loading: boolean = true;
 
   constructor(
     private menuService: MenuService,
@@ -26,19 +28,26 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.menuService.getDefault().subscribe({
-      next: (value: Menu) => {
-        this.menu = value;
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: error.error.message,
-          life: AppSettings.DEFAULT_MESSAGE_LIFE,
-        });
-      },
-    });
+    this.menuService
+      .getDefault()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe({
+        next: (value: Menu) => {
+          this.menu = value;
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message,
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+        },
+      });
   }
 
   getCurrencySymbol(currencyCode: string): string {
