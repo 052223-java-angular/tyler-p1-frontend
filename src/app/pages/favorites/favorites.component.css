@@ -1,0 +1,14 @@
+p-progressSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.favorite-toggle {
+  position: absolute;
+  z-index: 900;
+  right: 40px;
+  bottom: 40px;
+  border: 1px;
+}

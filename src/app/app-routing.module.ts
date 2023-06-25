@@ -12,6 +12,7 @@ import { CancelComponent } from './pages/checkout/cancel/cancel.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderComponent } from './pages/orders/order/order.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent }, // Route for the home page
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: 'orders/:id',
     component: OrderComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'favorites',
+    component: FavoritesComponent,
     canActivate: [AuthGuardService],
   },
   { path: '**', component: NotFoundComponent }, // Route for handling not-found pages

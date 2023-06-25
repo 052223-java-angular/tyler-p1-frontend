@@ -17,7 +17,7 @@
             <div class="flex menu-items flex-wrap items-center justify-center">
                 <a 
                     routerLink="/menuItem"
-                    [state]="{ menuItem: menuItem }"
+                    [state]="{ menuItem: menuItem, backLink: '/' }"
                     class="flex border-2 border-slate-500 p-4 m-5 min-w-xl"
                     *ngFor="let menuItem of menuSection.menuItems">
                         <div 

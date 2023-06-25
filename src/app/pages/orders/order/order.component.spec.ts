@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrderComponent } from './order.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
@@ -17,7 +17,7 @@ describe('OrderComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [OrderComponent],
-      imports: [HttpClientModule, TableModule],
+      imports: [HttpClientModule, TableModule, RouterModule],
       providers: [
         { provide: ActivatedRoute, useValue: fakeActivatedRoute },
         MessageService,
