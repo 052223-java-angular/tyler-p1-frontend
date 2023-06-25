@@ -26,3 +26,11 @@ body {
 hr {
   height: 0.05rem;
 }
+
+.signup {
+  background-color: #21c55d !important;
+}
+.signup .p-menuitem-icon,
+.signup .p-menuitem-text {
+  color: white !important;
+}

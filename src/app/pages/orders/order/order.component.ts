@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from 'src/app/global/app-settings';
+import { DateUtil } from 'src/app/global/date-util';
 import { OrderService } from 'src/app/order.service';
 
 @Component({
@@ -29,12 +30,10 @@ export class OrderComponent implements OnInit {
       (this.route.snapshot.paramMap
         ? this.route.snapshot.paramMap.get('id')
         : undefined);
-    console.log('orderId: ', orderId);
     if (orderId) {
       this.orderService.getById(orderId).subscribe({
         next: (order) => {
           this.order = order;
-          console.log(order);
         },
         error: (error) => {
           this.messageService.add({
@@ -69,5 +68,9 @@ export class OrderComponent implements OnInit {
           0
         )
       : 0;
+  }
+
+  formatDate() {
+    return DateUtil.fixDate(this.order.createdDate);
   }
 }

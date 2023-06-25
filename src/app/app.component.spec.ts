@@ -7,11 +7,12 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { CheckoutButtonComponent } from './components/checkout-button/checkout-button.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuModule } from 'primeng/menu';
 
 describe('AppComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, ToastModule, HttpClientModule],
+      imports: [RouterTestingModule, ToastModule, HttpClientModule, MenuModule],
       declarations: [AppComponent, NavbarComponent, CheckoutButtonComponent],
       providers: [NgEventBus, MessageService],
     })

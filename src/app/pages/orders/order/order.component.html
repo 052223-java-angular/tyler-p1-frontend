@@ -1,7 +1,7 @@
 <div
     class="flex flex-col items-center my-20">
     <h1 class="text-center font-bold text-4xl">Order {{ order ? order.id.substring(order.id.length / 1.5) : '' }}</h1>
-    <p class="mt-5">Placed on {{ order ? (order.createdDate | date: 'long') : '' }} </p>
+    <p class="mt-5">Placed on {{ order ? (formatDate() | date: 'medium'): '' }} </p>
     <p-table 
         [value]="(order ? order['orderMenuItemOfferResponses'] : [])" 
         [tableStyle]="{ 'min-width': '50rem' }"

@@ -255,7 +255,6 @@ export class CartComponent implements OnInit {
 
   calculateMaxPointsUserCanRedeem() {
     let value = Math.min(this.points, this.calculateTotal() * 100);
-    console.log(value);
     return value;
   }
 }

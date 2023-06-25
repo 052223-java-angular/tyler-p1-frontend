@@ -19,6 +19,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
@@ -69,6 +71,8 @@ import { OrderComponent } from './pages/orders/order/order.component';
     MultiSelectModule, // MultiSelect Module
     SliderModule, // Slider Module
     TableModule, // Table Module
+    ButtonModule, // Button Module
+    MenuModule, // Menu Module
   ],
   providers: [
     MessageService,
