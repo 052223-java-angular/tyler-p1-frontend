@@ -16,7 +16,7 @@
         <ng-template pTemplate="body" let-order>
             <tr>
                 <td><a class="text-blue-500" routerLink="/orders/{{order.id}}">{{ order.id }}</a></td>
-                <td>{{ order.createdDate | date: 'long' }}</td>
+                <td>{{ formatDate(order) | date: 'long' }}</td>
                 <td>{{ "Fulfilled" }}</td>
                 <td>{{ order.amount | currency: 'USD' }}</td>
             </tr>

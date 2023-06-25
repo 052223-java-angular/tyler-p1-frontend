@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
+import { DateUtil } from 'src/app/global/date-util';
 import { OrderService } from 'src/app/order.service';
 
 @Component({
@@ -40,5 +41,9 @@ export class OrdersComponent implements OnInit {
           });
         },
       });
+  }
+
+  formatDate(order: any) {
+    return DateUtil.fixDate(order.createdDate);
   }
 }
