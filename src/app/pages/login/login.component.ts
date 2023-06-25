@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit {
     // Call the authentication service to register the user
     this.authService.login(payload).subscribe({
       next: (data) => {
+        this.tokenService.saveUser(data);
         this.tokenService.saveToken(data.accessToken);
         this.tokenService.saveRefreshToken(data.refreshToken);
-        this.tokenService.saveUser(data);
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
