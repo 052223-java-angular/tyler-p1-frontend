@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AboutComponent } from './pages/about/about.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,7 +42,6 @@ import { FourOhFourComponent } from './pages/four-oh-four/four-oh-four.component
   declarations: [
     AppComponent,
     NavbarComponent,
-    AboutComponent,
     NotFoundComponent,
     RegisterComponent,
     LoginComponent,
