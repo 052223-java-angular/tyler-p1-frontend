@@ -38,7 +38,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div 
-                *ngIf="order && calculateGrandTotal() != order.amount"
+                *ngIf="order && (calculateGrandTotal() - order.amount) > 0.01"
                 class="flex flex-col">
                 <div class="flex justify-content-between mt-4">
                     <p class="text-sm">Subtotal:</p>
