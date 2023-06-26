@@ -1,0 +1,59 @@
+<div
+    class="flex flex-col items-center my-20">
+    <a 
+        *ngIf="backLink != ''"
+        class="text-blue-500 underline underline-offset-4 my-10 mr-auto ml-48" [routerLink]="backLink">
+        <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1" style="-webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        &nbsp;Go back
+    </a>
+    <h1 class="text-center font-bold text-4xl">Order {{ order ? order.id.substring(order.id.length / 1.5) : '' }}</h1>
+    <p class="mt-5">Placed on {{ order ? (formatDate() | date: 'medium'): '' }} </p>
+    <p-table 
+        [value]="(order ? order['orderMenuItemOfferResponses'] : [])" 
+        [tableStyle]="{ 'min-width': '50rem' }"
+        class="mt-10">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>
+                    <p>{{ item.name }} <small>({{item.price | currency: item.currency}})</small></p>
+                    <div
+                        *ngFor="let child of item.childOrderMenuItemOfferResponses"
+                        class="ml-4">
+                        <small>{{ child.name }} ({{child.price | currency: child.currency}})</small>
+                    </div>
+                </td>
+                <td>{{ calculateLineItemPrice(item) | currency: item.currency }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ calculateLineItemTotal(item) | currency: item.currency}}</td>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div 
+                *ngIf="order && calculateGrandTotal() != order.amount"
+                class="flex flex-col">
+                <div class="flex justify-content-between mt-4">
+                    <p class="text-sm">Subtotal:</p>
+                    <p class="ml-auto">{{ calculateGrandTotal() | currency: 'USD' }}</p>
+                </div>
+                <div class="flex justify-content-between mt-4 text-green-500">
+                    <small class="">Discount Applied:</small>
+                    <p class="ml-auto">{{ calculateGrandTotal() - order.amount | currency: 'USD' }}</p>
+                </div>
+            </div>
+            <div class="flex justify-content-between mt-4 ml-auto">
+                <p>Grand Total:</p>
+                <p class="ml-auto">{{ order && order.amount | currency: 'USD' }}</p>
+            </div>
+        </ng-template>
+    </p-table>
+
+</div>

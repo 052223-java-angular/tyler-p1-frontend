@@ -1,2 +1,12 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div class="flex flex-col min-h-screen">
+    <app-navbar></app-navbar>
+    <p-toast
+        position="top-center"></p-toast>
+    <div class="flex-grow relative">
+        <router-outlet></router-outlet>
+        <app-checkout-button></app-checkout-button>
+    </div> 
+    <footer class="my-20">
+        <p class="text-center">&copy; MarsTown {{ year }}</p>
+    </footer>
+</div>

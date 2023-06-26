@@ -2,7 +2,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "primeicons/primeicons.css";
 
 body {
-    @apply font-mono
+  @apply font-mono;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+.card {
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.p-toast {
+  opacity: 1;
+}
+
+hr {
+  height: 0.05rem;
+}
+
+.signup {
+  background-color: #21c55d !important;
+}
+.signup .p-menuitem-icon,
+.signup .p-menuitem-text {
+  color: white !important;
 }

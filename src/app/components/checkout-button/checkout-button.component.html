@@ -1,0 +1,14 @@
+<button
+    *ngIf="!loading && canShow"
+    class="bg-white float px-20 py-5 text-black rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration"
+    (click)="checkout()">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg">
+    <span>Checkout with Stripe</span>
+</button>
+
+<div
+    *ngIf="loading"
+    class="bg-white float-borderless px-20 py-5 rounded-md transition hover:ease-out hover:scale-110 duration"
+    disabled>
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>

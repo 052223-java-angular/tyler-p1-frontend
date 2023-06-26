@@ -1,0 +1,38 @@
+<div
+    *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<div
+    *ngIf="!loading"
+    class="flex flex-col items-center">
+    <div class="flex flex-col items-center gap-10 my-20 w-9/12">
+        <h1 class="font-bold text-4xl">{{ menu.name | uppercase}}</h1>
+
+        <section 
+            *ngFor="let menuSection of menu.menuSections"
+            class="flex menu menu-section items-center flex-col">
+            <h1 class="menu-section font-bold text-xl">
+                {{ menuSection.name }}
+            </h1>
+            <div class="flex menu-items flex-wrap items-center justify-center">
+                <a 
+                    routerLink="/menuItem"
+                    [state]="{ menuItem: menuItem, backLink: '/' }"
+                    class="flex border-2 border-slate-500 p-4 m-5 min-w-xl"
+                    *ngFor="let menuItem of menuSection.menuItems">
+                        <div 
+                            class="flex flex col mr-4">
+                            <img width="200" height="160" [src]="menuItem.imageUrl"  [alt]="menuItem.name">
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-lg">{{ menuItem.name }}</p>
+                            <p class="text-sm text-slate-500">{{ menuItem.description }}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-sm text-slate-700">{{ getCurrencySymbol(menuItem.menuItemOffers[0].currency) }}{{ menuItem.menuItemOffers[0].price }}</p>
+                        </div>
+                </a>
+            </div>
+        </section>
+    </div>
+</div>

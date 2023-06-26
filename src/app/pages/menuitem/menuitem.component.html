@@ -1,0 +1,107 @@
+<div 
+    *ngIf="!loading"
+    class="w-9/12 flex flex-col gap-7 my-20 mx-auto">
+    <a class="text-blue-500 underline underline-offset-4" [routerLink]="backLink">
+        <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1" style="-webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        &nbsp; Go back
+    </a>
+
+    <div 
+        class="flex justify-between">
+        <div class="flex items-baseline">
+            <h1 class="font-bold text-4xl">{{ menuItem.name }}</h1>
+            <p class="ml-2 text-lg">{{ menuItem && menuItem.menuItemOffers && menuItem.menuItemOffers[0] && (menuItem.menuItemOffers[0].price | currency: menuItem.menuItemOffers[0].currency) }}</p>
+        </div>
+        <div 
+            *ngIf="this.user.id"
+            class="favorite">
+            <button
+                class="text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2 mb-2 disabled:opacity-25"
+                *ngIf="!menuItemIsOnFavoritesList"
+                (click)="addToFavorites()"
+                [disabled]="loading">
+                <i class="pi pi-star"></i>&nbsp;
+                Add To Favorites
+            </button>
+            <button
+                class="border text-gray-900 hover:bg-gray-200 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2 disabled:opacity-25"
+                *ngIf="menuItemIsOnFavoritesList"
+                (click)="removeFromFavorites()"
+                [disabled]="loading">
+                <i class="pi pi-star-fill"></i>&nbsp;
+                Remove from Favorites
+            </button>
+        </div>
+    </div>
+    
+    <img [src]="menuItem.imageUrl" width="200" height="160">
+
+    <p class="text-base text-slate-500">{{ menuItem.description }}</p>
+    
+    <hr class="w-full my-2 bg-slate-300 border-0">
+
+    <form 
+        [formGroup]="menuItemForm"
+        (ngSubmit)="submitForm()"
+        class="flex flex-col gap-10 my-4 p-2 rounded-md">
+        <div *ngFor="let menuSection of menuItem.menuSections" class="flex flex-col gap-3">
+            <h1 class="font-bold text-lg">{{ menuSection.name }}</h1>
+            <ng-container
+                *ngIf="menuSection.minimumQuantity == 1 && menuSection.maximumQuantity == 1">
+                <div
+                    *ngFor="let menuItem of menuSection.menuItems"
+                    class="field-checkbox">
+                    <p-radioButton [inputId]="menuItem.id" [value]="menuItem" formControlName="{{menuSection.id}}"></p-radioButton>
+                    <label [for]="menuItem.id" class="ml-2">
+                        {{ menuItem.name }}
+                        <span><small>
+                            {{ menuItem && menuItem.menuItemOffers && menuItem.menuItemOffers[0].price > 0 ?  '+' + (menuItem.menuItemOffers[0].price | currency: 'USD' : 'symbol') : "" }}
+                        </small></span>
+                    </label>
+                </div>
+            </ng-container>
+
+            <ng-container
+                *ngIf="menuSection.minimumQuantity == 0 && !menuSection.maximumQuantity">
+                <p-multiSelect #multiselect 
+                    [options]="menuSection.menuItems" 
+                    formControlName="{{menuSection.id}}"
+                    optionLabel="name"
+                    [filter]=false
+                    defaultLabel="Select"
+                    styleClass="flex">
+                    <ng-template let-value pTemplate="selectedItems">
+                        <ng-container *ngFor="let option of menuItemForm.controls[menuSection.id].value, let i = index">
+                            <span>{{option.name}}{{ i < menuItemForm.controls[menuSection.id].value.length - 1 ? ", " : ""}}</span>
+                        </ng-container>
+                        <div *ngIf="!menuItemForm.controls[menuSection.id].value || menuItemForm.controls[menuSection.id].value.length === 0" class="">
+                            Select {{ menuSection.name }}
+                        </div>
+                    </ng-template>
+                    <ng-template let-menuItem pTemplate="item">
+                        <div class="country-item">
+                            <div>
+                                {{menuItem.name}}
+                                <span class="ml-4"><small>
+                                    {{ menuItem.menuItemOffers[0].price > 0 ?  '+' + (menuItem.menuItemOffers[0].price | currency: 'USD' : 'symbol') : "" }}
+                                </small></span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-multiSelect>
+            </ng-container>
+        </div>
+        <button
+            *ngIf="this.user.id"
+            type="submit"
+            class="bg-blue-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration disabled:opacity-25"
+            [disabled]="!menuItemForm.valid">
+            Add to Cart
+        </button>
+    </form>
+</div>
+
+<div
+    *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
+</div>
