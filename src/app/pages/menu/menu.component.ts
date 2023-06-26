@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuService
-      .getDefault()
+      .fetchDefault()
       .pipe(
         finalize(() => {
           this.loading = false;
