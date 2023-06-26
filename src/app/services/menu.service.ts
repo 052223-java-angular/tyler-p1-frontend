@@ -21,13 +21,16 @@ export class MenuService {
   }
 
   getDefault(): Observable<Menu> {
+    return this.http.get<Menu>(`${AppSettings.P1_API_URL}/menu/default`);
+  }
+
+  fetchDefault(): Observable<Menu> {
     const menu = window.sessionStorage.getItem(MENU_KEY);
     if (menu) {
       return of(JSON.parse(menu));
     }
-    const menuFuture: Observable<Menu> = this.getById(
-      AppSettings.DEFAULT_MENU_ID
-    );
+    const menuFuture: Observable<Menu> = this.getDefault();
+
     menuFuture.subscribe({
       next: (value: Menu) => {
         window.sessionStorage.setItem(MENU_KEY, JSON.stringify(value));
